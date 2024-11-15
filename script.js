@@ -36,6 +36,5 @@ function handleException(error) {
     throw error; // Re-throw unexpected errors
   }
 }
-
 // Example usage
 console.log(reliableMultiply(8, 8)); // outputs 64 (after possibly multiple retries)
