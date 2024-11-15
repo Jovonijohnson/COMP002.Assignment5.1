@@ -30,3 +30,15 @@ function primitiveMultiply(a, b) {
         return a * b;
     }
 }
+// Reliable function that retries until successful
+function reliableMultiply(a, b) {
+  while (true) {
+      try {
+          return primitiveMultiply(a, b);
+      } catch (error) {
+          if (!(error instanceof MultiplicatorUnitFailure)) {
+              throw error; // Re-throw unexpected errors
+          }
+      }
+  }
+}
