@@ -42,3 +42,6 @@ function reliableMultiply(a, b) {
       }
   }
 }
+// Example usage
+console.log(reliableMultiply(8, 8)); // outputs 64 (after possibly multiple retries)
+
