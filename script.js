@@ -15,22 +15,9 @@ function primitiveMultiply(a, b) {
     throw new MultiplicatorUnitFailure("Klunk");
   }
 }
-
 function reliableMultiply(a, b) {
   // Your code here.
-} 
-// Simulating the exception type
-class MultiplicatorUnitFailure extends Error {}
-
-// Function that fails 80% of the time
-function primitiveMultiply(a, b) {
-    if (Math.random() < 0.8) {
-        throw new MultiplicatorUnitFailure('Multiplication failed');
-    } else {
-        return a * b;
-    }
-}
-// Reliable function that retries until successful
+} // Reliable function that retries until successful
 function reliableMultiply(a, b) {
   while (true) {
       try {
@@ -42,6 +29,13 @@ function reliableMultiply(a, b) {
       }
   }
 }
+function handleException(error) {
+  if (error instanceof MultiplicatorUnitFailure) {
+    console.warn('Multiplication failed, retrying...');
+  } else {
+    throw error; // Re-throw unexpected errors
+  }
+}
+
 // Example usage
 console.log(reliableMultiply(8, 8)); // outputs 64 (after possibly multiple retries)
-
