@@ -19,3 +19,14 @@ function primitiveMultiply(a, b) {
 function reliableMultiply(a, b) {
   // Your code here.
 } 
+// Simulating the exception type
+class MultiplicatorUnitFailure extends Error {}
+
+// Function that fails 80% of the time
+function primitiveMultiply(a, b) {
+    if (Math.random() < 0.8) {
+        throw new MultiplicatorUnitFailure('Multiplication failed');
+    } else {
+        return a * b;
+    }
+}
