@@ -6,35 +6,31 @@
 // Example Output:
 // console.log(reliableMultiply(8, 8)); // outputs 64
 
-class MultiplicatorUnitFailure extends Error {}
-
-function primitiveMultiply(a, b) {
-  if (Math.random() < 0.2) {
-    return a * b;
+class MultiplicatorUnitFailure extends Error {} // Defines a custom error class for multiplication failures
+function primitiveMultiply(a, b) { // Attempts to multiply two numbers
+  if (Math.random() < 0.2) { // Has a 20% chance to successfully perform multiplication
+    return a * b; // Returns the product if successful
   } else {
-    throw new MultiplicatorUnitFailure("Klunk");
+    throw new MultiplicatorUnitFailure("Klunk"); // Throws a custom error in 80% of the cases
   }
 }
-function reliableMultiply(a, b) {
-  // Your code here.
-} // Reliable function that retries until successful
-function reliableMultiply(a, b) {
-  while (true) {
-      try {
-          return primitiveMultiply(a, b);
-      } catch (error) {
-          if (!(error instanceof MultiplicatorUnitFailure)) {
-              throw error; // Re-throw unexpected errors
-          }
+function reliableMultiply(a, b) { // Function that keeps trying until multiplication succeeds
+  while (true) { // Continues to loop until the multiplication succeeds
+      try { // Starts a try block to attempt the multiplication
+          return primitiveMultiply(a, b); // Tries to multiply the numbers
+      } catch (error) { // Catches any errors thrown during the multiplication attempt
+          if (!(error instanceof MultiplicatorUnitFailure)) { // Checks if the error is not an instance of MultiplicatorUnitFailure
+              throw error; // Re-throws any unexpected errors
+          } // If the error is an instance of MultiplicatorUnitFailure, the loop continues and retries
       }
   }
 }
-function handleException(error) {
-  if (error instanceof MultiplicatorUnitFailure) {
-    console.warn('Multiplication failed, retrying...');
-  } else {
-    throw error; // Re-throw unexpected errors
+function handleException(error) { // Handles custom exceptions
+  if (error instanceof MultiplicatorUnitFailure) { // Checks if the error is an instance of MultiplicatorUnitFailure
+    console.warn('Multiplication failed, retrying...'); // Logs a warning message indicating a retry
+  } else { // If the error is not an instance of MultiplicatorUnitFailure
+    throw error; // Re-throws any other errors
   }
 }
 // Example usage
-console.log(reliableMultiply(8, 8)); // outputs 64 (after possibly multiple retries)
+console.log(reliableMultiply(8, 8)); // Logs the result of reliableMultiply(8, 8), which should be 64 after retries
