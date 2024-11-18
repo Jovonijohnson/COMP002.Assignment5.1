@@ -6,25 +6,16 @@
 // Example Output:
 // console.log(reliableMultiply(8, 8)); // outputs 64
 
-class MultiplicatorUnitFailure extends Error {} // Defines a custom error class for multiplication failures
-function primitiveMultiply(a, b) { // Attempts to multiply two numbers
-  if (Math.random() < 0.2) { // Has a 20% chance to successfully perform multiplication
+class MultiplicatorUnitFailure extends Error {} // Custom error class for multiplication failures
+
+function primitiveMultiply(a, b) { // Function that attempts to multiply two numbers
+  if (Math.random() < 0.2) { // 20% chance to successfully multiply the numbers
     return a * b; // Returns the product if successful
   } else {
-    throw new MultiplicatorUnitFailure("Klunk"); // Throws a custom error in 80% of the cases
+    throw new MultiplicatorUnitFailure("Klunk"); // 80% chance to throw a custom error
   }
 }
-function reliableMultiply(a, b) { // Function that keeps trying until multiplication succeeds
-  while (true) { // Continues to loop until the multiplication succeeds
-      try { // Starts a try block to attempt the multiplication
-          return primitiveMultiply(a, b); // Tries to multiply the numbers
-      } catch (error) { // Catches any errors thrown during the multiplication attempt
-          if (!(error instanceof MultiplicatorUnitFailure)) { // Checks if the error is not an instance of MultiplicatorUnitFailure
-              throw error; // Re-throws any unexpected errors
-          } // If the error is an instance of MultiplicatorUnitFailure, the loop continues and retries
-      }
-  }
-}
+
 function handleException(error) { // Handles custom exceptions
   if (error instanceof MultiplicatorUnitFailure) { // Checks if the error is an instance of MultiplicatorUnitFailure
     console.warn('Multiplication failed, retrying...'); // Logs a warning message indicating a retry
@@ -32,5 +23,16 @@ function handleException(error) { // Handles custom exceptions
     throw error; // Re-throws any other errors
   }
 }
+
+function reliableMultiply(a, b) { // Function that keeps trying until multiplication succeeds
+  while (true) { // Continues to loop until multiplication succeeds
+    try { // Starts a try block to attempt the multiplication
+      return primitiveMultiply(a, b); // Tries to multiply the numbers
+    } catch (error) { // Catches any errors thrown during multiplication attempt
+      handleException(error); // Calls handleException to manage the error
+    }
+  }
+}
+
 // Example usage
 console.log(reliableMultiply(8, 8)); // Logs the result of reliableMultiply(8, 8), which should be 64 after retries
