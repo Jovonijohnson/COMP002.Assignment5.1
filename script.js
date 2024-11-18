@@ -16,7 +16,7 @@ function primitiveMultiply(a, b) { // Function that attempts to multiply two num
   }
 }
 function reliableMultiply(a, b) { // Function that keeps trying until multiplication succeeds
-//Your code here.
+//your code here
 while (true) { // Continues to loop until multiplication succeeds
   try { // Starts a try block to attempt the multiplication
     return primitiveMultiply(a, b); // Tries to multiply the numbers
@@ -25,14 +25,14 @@ while (true) { // Continues to loop until multiplication succeeds
   }
 }
 }
-
 function handleException(error) { // Handles custom exceptions
-  if (error instanceof MultiplicatorUnitFailure) { // Checks if the error is an instance of MultiplicatorUnitFailure
-    console.warn('Multiplication failed, retrying...'); // Logs a warning message indicating a retry
+  if (error instanceof MultiplicatorUnitFailure) { // Checks if the error is an instance of 
+    
+    //console.warn('Multiplication failed, retrying...');  Logs a warning message indicating a retry
+
   } else { // If the error is not an instance of MultiplicatorUnitFailure
     throw error; // Re-throws any other errors
   }
 }
-
 // Example usage
 console.log(reliableMultiply(8, 8)); // Logs the result of reliableMultiply(8, 8), which should be 64 after retries
